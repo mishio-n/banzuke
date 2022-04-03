@@ -1,3 +1,4 @@
+import { Link } from "remix";
 import { Header } from "~/components/header";
 
 export default function Index() {
@@ -6,27 +7,14 @@ export default function Index() {
       <Header />
       <ul>
         <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer"
-          >
-            15m Quickstart Blog Tutorial
-          </a>
+          <Link to="/generation">
+            <span>世代</span>
+          </Link>
         </li>
         <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer"
-          >
-            Deep Dive Jokes App Tutorial
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
+          <Link to="/race">
+            <span>レース</span>
+          </Link>
         </li>
       </ul>
     </div>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="49px" viewBox="0 0 48 49" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Base</title>
+    <g id="base" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Base" transform="translate(0.431622, 0.000000)" fill="#D8D8D8">
+            <rect id="Body" x="11.5683784" y="0" width="24" height="48"></rect>
+            <g id="Arm_L" transform="translate(33.983515, 0.094334)">
+                <polygon id="Rectangle" transform="translate(6.546484, 23.997760) rotate(-5.000000) translate(-6.546484, -23.997760) " points="3.02575454 0.519144744 11.044847 0.301888894 10.0672061 47.4763758 2.04811361 47.6936317"></polygon>
+                <polygon id="Triangle" points="0.529964898 0.0435937685 8.99889883 0 0.679674273 1.24581759"></polygon>
+            </g>
+            <g id="Arm_R" transform="translate(0.000000, 0.136637)">
+                <polygon id="Rectangle" transform="translate(6.529953, 23.905179) rotate(5.000000) translate(-6.529953, -23.905179) " points="2.03990289 0.30387864 10.0585945 0.517525077 11.0200035 47.5064798 3.00131185 47.2928334"></polygon>
+                <polygon id="Triangle" points="11.8861186 0.0321783959 4.03963592 8.19653228e-15 11.8142862 1.05442726"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
