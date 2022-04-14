@@ -8,22 +8,28 @@
     "build": "remix build",
     "dev": "remix dev",
     "postinstall": "remix setup node",
-    "start": "remix-serve build"
+    "start": "remix-serve build",
+    "seed": "node --require esbuild-register prisma/seed.ts",
+    "generate": "prisma generate",
+    "repl": "prisma-repl"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.8.7",
     "@emotion/react": "^11.8.2",
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.8.1",
+    "@prisma/client": "^3.12.0",
     "@remix-run/react": "^1.3.3",
     "@remix-run/serve": "^1.3.3",
     "framer-motion": "^6.2.8",
+    "puppeteer": "^13.5.2",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^17.0.2",
     "remix": "^1.3.3"
   },
   "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^8.14.0",
     "@remix-run/dev": "^1.3.3",
     "@remix-run/eslint-config": "^1.3.3",
     "@types/react": "^17.0.24",
@@ -31,6 +37,10 @@
     "@types/react-dom": "^17.0.9",
     "eslint": "^8.11.0",
     "prettier": "^2.6.1",
+    "prisma": "^3.12.0",
+    "prisma-dbml-generator": "^0.9.0",
+    "prisma-erd-generator": "^0.11.0",
+    "prisma-repl": "^1.3.0",
     "typescript": "^4.5.5"
   },
   "engines": {

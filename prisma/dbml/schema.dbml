@@ -1,0 +1,56 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table Horse {
+  id String [unique, not null]
+  name String [not null]
+  link String [not null]
+  birthYear Int [not null]
+  genderCategory GenderCategory [not null]
+  sire String [not null]
+  bloodmare String [not null]
+  owner Owner [not null]
+  ownerId Int [not null]
+  stable Stable [not null]
+  stableId Int [not null]
+}
+
+Table Stable {
+  id Int [pk, increment]
+  name String [unique, not null]
+  region StableRegion [not null]
+  Horse Horse [not null]
+}
+
+Table Owner {
+  id Int [pk, increment]
+  name String [unique, not null]
+  colors String
+  Horse Horse [not null]
+}
+
+Table RaceTierList {
+  id String [unique, not null]
+  json String [not null]
+}
+
+Table RaceTemplate {
+  id String [unique, not null]
+  json String [not null]
+}
+
+Enum GenderCategory {
+  MALE
+  FEMALE
+}
+
+Enum StableRegion {
+  MIHO
+  RITTO
+  NRA
+}
+
+Ref: Horse.ownerId > Owner.id
+
+Ref: Horse.stableId > Stable.id

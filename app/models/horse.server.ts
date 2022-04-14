@@ -1,71 +1,55 @@
-export type Horse = {
-  name: string;
-  owner: {
-    name: string;
-    colors?: string;
-  };
-  netkibaLink: string;
-  gateNumber?: number;
+import { GenderCategory } from "@prisma/client";
+import { getHorseData } from "~/services/horse/getHorseData.server";
+import { db } from "~/utils/db.server";
+
+export const getHorseDataBySeason = async (
+  birthYear: number,
+  genderCategory?: GenderCategory
+) => {
+  const result = await db.horse.findMany({
+    where: {
+      birthYear,
+      genderCategory,
+    },
+  });
+
+  return result;
 };
 
-export const getHorses = async (raceId: string): Promise<Horse[]> => {
-  // const race = db.race.get()
-  return [
-    {
-      name: "レッドジェネシス",
-      owner: {
-        name: "東京ホースレーシング",
-      },
-      netkibaLink: "https://db.netkeiba.com/horse/2018105343",
-      gateNumber: 2,
+export const createHorseData = async (link: string) => {
+  const data = await getHorseData(link);
+  if (data === null) {
+    throw new Error("");
+  }
+  const { ownerName, stableName, stableRegion, ...horseData } = data;
+
+  const owner = await db.owner.findUnique({
+    where: { name: ownerName },
+  });
+
+  const stable = await db.stable.findUnique({
+    where: {
+      name: stableName,
     },
-    {
-      name: "ジャックドール",
-      owner: {
-        name: "前原敏行",
-      },
-      netkibaLink: "https://db.netkeiba.com/horse/2018100274",
-      gateNumber: 4,
+  });
+
+  const result = await db.horse.create({
+    data: {
+      ...horseData,
+      owner: owner
+        ? { connect: { id: owner.id } }
+        : { create: { name: ownerName } },
+      link,
+      stable: stable
+        ? { connect: { id: stable.id } }
+        : {
+            create: {
+              name: stableName,
+              region: stableRegion,
+            },
+          },
     },
-    {
-      name: "アカイイト",
-      owner: {
-        name: "岡浩二",
-      },
-      netkibaLink: "https://db.netkeiba.com/horse/2017106203",
-      gateNumber: 5,
-    },
-    {
-      name: "エフフォーリア",
-      owner: {
-        name: "キャロットファーム",
-      },
-      netkibaLink: "https://db.netkeiba.com/horse/2018105027",
-      gateNumber: 6,
-    },
-    {
-      name: "ポタジェ",
-      owner: {
-        name: "金子真人ホールディングス",
-      },
-      netkibaLink: "https://db.netkeiba.com/horse/2017105376",
-      gateNumber: 8,
-    },
-    {
-      name: "アリーヴォ",
-      owner: {
-        name: "シルクレーシング",
-      },
-      netkibaLink: "https://db.netkeiba.com/horse/2018104960",
-      gateNumber: 9,
-    },
-    {
-      name: "レイパパレ",
-      owner: {
-        name: "キャロットファーム",
-      },
-      netkibaLink: "https://db.netkeiba.com/horse/2017105335",
-      gateNumber: 14,
-    },
-  ];
+  });
+
+  return result;
 };

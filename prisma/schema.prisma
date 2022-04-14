@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum GenderCategory {
+  MALE
+  FEMALE
+}
+
+enum StableRegion {
+  MIHO
+  RITTO
+  NRA
+}
+
+model Horse {
+  id             String         @unique
+  name           String
+  link           String
+  birthYear      Int
+  genderCategory GenderCategory
+  sire           String
+  bloodmare      String
+  owner          Owner          @relation(fields: [ownerId], references: [id])
+  ownerId        Int
+  stable         Stable         @relation(fields: [stableId], references: [id])
+  stableId       Int
+}
+
+model Stable {
+  id     Int          @id @default(autoincrement())
+  name   String       @unique
+  region StableRegion
+  Horse  Horse[]
+}
+
+model Owner {
+  id     Int     @id @default(autoincrement())
+  name   String  @unique
+  colors String?
+  Horse  Horse[]
+}
+
+model RaceTierList {
+  id   String @unique
+  json String
+}
+
+model RaceTemplate {
+  id    String @unique
+  json  String
+}
