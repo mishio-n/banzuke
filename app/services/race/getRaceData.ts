@@ -3,6 +3,9 @@ import { getTextFromElement } from "~/services/util/puppeteer";
 
 export const getRaceData = async (url: string) => {
   const id = new URL(url).searchParams.get("race_id");
+  if (id === null) {
+    throw new Error("");
+  }
   const browser = await Puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(url, {
@@ -22,6 +25,10 @@ export const getRaceData = async (url: string) => {
       const horseNum = i + 1;
       const horse = await getTextFromElement(horseRow, "td.HorseInfo");
       const jockey = await getTextFromElement(horseRow, "td.Jockey");
+
+      if (horse === null || jockey === null) {
+        throw new Error("");
+      }
 
       return {
         horseNum,

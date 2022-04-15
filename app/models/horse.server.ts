@@ -2,6 +2,8 @@ import { GenderCategory } from "@prisma/client";
 import { getHorseData } from "~/services/horse/getHorseData.server";
 import { db } from "~/utils/db.server";
 
+export type { Horse } from "@prisma/client";
+
 export const getHorseDataBySeason = async (
   birthYear: number,
   genderCategory?: GenderCategory
