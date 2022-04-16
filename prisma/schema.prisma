@@ -30,7 +30,7 @@ model Horse {
   id             String         @unique
   name           String
   link           String
-  birthYear      Int
+  birthyear      Int
   genderCategory GenderCategory
   sire           String
   bloodmare      String

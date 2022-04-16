@@ -1,10 +1,10 @@
 import { GenderCategory, StableRegion } from "@prisma/client";
 import Puppeteer from "puppeteer";
-import { getTextFromElement } from "~/services/util/puppeteer";
+import { getTextFromElement } from "~/utils/puppeteer.server";
 
 export const getHorseData = async (url: string) => {
   const id = url.split("/")[4];
-  const birthYear = +id.substring(0, 4);
+  const birthyear = +id.substring(0, 4);
 
   const browser = await Puppeteer.launch();
   const page = await browser.newPage();
@@ -58,7 +58,7 @@ export const getHorseData = async (url: string) => {
   return {
     id,
     name,
-    birthYear,
+    birthyear,
     genderCategory,
     ownerName,
     stableName,

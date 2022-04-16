@@ -6,7 +6,7 @@ Table Horse {
   id String [unique, not null]
   name String [not null]
   link String [not null]
-  birthYear Int [not null]
+  birthyear Int [not null]
   genderCategory GenderCategory [not null]
   sire String [not null]
   bloodmare String [not null]

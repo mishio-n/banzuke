@@ -1,5 +1,5 @@
-import { generateRandomAlphanumeric } from "~/services/util/generateRandomAlphanumeric";
 import { db } from "~/utils/db.server";
+import { generateRandomAlphanumeric } from "~/utils/generateRandomAlphanumeric.server";
 
 export type { RaceTierList } from "@prisma/client";
 

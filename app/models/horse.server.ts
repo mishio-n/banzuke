@@ -5,12 +5,12 @@ import { db } from "~/utils/db.server";
 export type { Horse } from "@prisma/client";
 
 export const getHorseDataBySeason = async (
-  birthYear: number,
+  birthyear: number,
   genderCategory?: GenderCategory
 ) => {
   const result = await db.horse.findMany({
     where: {
-      birthYear,
+      birthyear,
       genderCategory,
     },
   });

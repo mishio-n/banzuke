@@ -1,5 +1,5 @@
 import Puppeteer from "puppeteer";
-import { getTextFromElement } from "~/services/util/puppeteer";
+import { getTextFromElement } from "~/utils/puppeteer.server";
 
 export const getRaceData = async (url: string) => {
   const id = new URL(url).searchParams.get("race_id");
