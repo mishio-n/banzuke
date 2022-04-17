@@ -2,6 +2,15 @@ import { getRaceData } from "~/services/race/getRaceData";
 import { db } from "~/utils/db.server";
 
 export type { RaceTemplate } from "@prisma/client";
+export type RaceTemplateJson = {
+  horseList: RaceTemplateHorse[];
+  totalHoseNum: number;
+};
+export type RaceTemplateHorse = {
+  horseNum: number;
+  horse: string;
+  jockey: string;
+};
 
 export const getRaceTemplates = async () => {
   return db.raceTemplate.findMany();
@@ -21,7 +30,8 @@ export const createRaceTemplate = async (url: string, title: string) => {
   const result = await db.raceTemplate.create({
     data: {
       id,
-      json: JSON.stringify({ ...raceData, title }),
+      title,
+      json: JSON.stringify({ ...raceData }),
     },
   });
 

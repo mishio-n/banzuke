@@ -41,6 +41,7 @@ const main = async () => {
   const raceTemplate1 = await prisma.raceTemplate.create({
     data: {
       id: "202209020609",
+      title: "忘れな草賞",
       json: JSON.stringify({
         totalHorseNum: 8,
         horseList: [

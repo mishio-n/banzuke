@@ -2,6 +2,20 @@ import { db } from "~/utils/db.server";
 import { generateRandomAlphanumeric } from "~/utils/generateRandomAlphanumeric.server";
 
 export type { RaceTierList } from "@prisma/client";
+export type RaceTierListJson = {
+  S: RaceTierListHorse[];
+  A: RaceTierListHorse[];
+  B: RaceTierListHorse[];
+  C: RaceTierListHorse[];
+  D: RaceTierListHorse[];
+  E: RaceTierListHorse[];
+  initialList: RaceTierListHorse[];
+};
+
+export type RaceTierListHorse = {
+  horseNum: number;
+  horse: string;
+};
 
 export const getRaceTierList = async (id: string) => {
   return db.raceTierList.findUnique({
@@ -11,12 +25,20 @@ export const getRaceTierList = async (id: string) => {
   });
 };
 
-export const createRaceTierList = async (json: any) => {
+export const createRaceTierList = async (
+  raceTemplateId: string,
+  json: RaceTierListJson,
+  comment: string,
+  title: string
+) => {
   const id = generateRandomAlphanumeric();
   return db.raceTierList.create({
     data: {
       id,
+      title,
       json: JSON.stringify(json),
+      comment,
+      raceTemplateId,
     },
   });
 };

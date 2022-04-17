@@ -55,11 +55,17 @@ model Owner {
 }
 
 model RaceTierList {
-  id   String @unique
-  json String
+  id             String       @unique
+  title          String
+  json           String
+  comment        String
+  raceTemplate   RaceTemplate @relation(fields: [raceTemplateId], references: [id])
+  raceTemplateId String
 }
 
 model RaceTemplate {
-  id    String @unique
-  json  String
+  id           String         @unique
+  title        String
+  json         String
+  RaceTierList RaceTierList[]
 }

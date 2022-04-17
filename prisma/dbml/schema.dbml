@@ -32,12 +32,18 @@ Table Owner {
 
 Table RaceTierList {
   id String [unique, not null]
+  title String [not null]
   json String [not null]
+  comment String [not null]
+  raceTemplate RaceTemplate [not null]
+  raceTemplateId String [not null]
 }
 
 Table RaceTemplate {
   id String [unique, not null]
+  title String [not null]
   json String [not null]
+  RaceTierList RaceTierList [not null]
 }
 
 Enum GenderCategory {
@@ -54,3 +60,5 @@ Enum StableRegion {
 Ref: Horse.ownerId > Owner.id
 
 Ref: Horse.stableId > Stable.id
+
+Ref: RaceTierList.raceTemplateId > RaceTemplate.id

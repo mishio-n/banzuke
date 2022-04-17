@@ -10,33 +10,40 @@ import { json, LoaderFunction, useLoaderData } from "remix";
 import { HorseIcon } from "~/components/horseIcon";
 import { getFrameColor, getFrameNumber } from "~/logic/getFrameColor";
 import { reorder } from "~/logic/reorder";
-import { getHorses, Horse } from "~/models/horse.server";
+import {
+  getRaceTemplate,
+  RaceTemplateHorse,
+  RaceTemplateJson,
+} from "~/models/raceTemplate.server";
+import { RaceTierListJson } from "~/models/raceTierList.server";
 
 type LoaderData = {
-  horses: Horse[];
-};
-
-type TierListMap = {
-  S: Horse[];
-  A: Horse[];
-  B: Horse[];
-  C: Horse[];
-  D: Horse[];
-  E: Horse[];
-  initialList: Horse[];
+  data: {
+    title: string;
+    horseList: RaceTemplateHorse[];
+    totalHorseNum: number;
+  };
 };
 
 type DispMode = "COLORS" | "NUMBER";
 
 export const loader: LoaderFunction = async () => {
-  const horses = await getHorses("2022-osakahai");
+  const templateData = await getRaceTemplate("202209020609");
+  if (templateData === null) {
+    return { status: 404 };
+  }
+  const raceTemplateJson = JSON.parse(templateData.json) as RaceTemplateJson;
   return json<LoaderData>({
-    horses,
+    data: {
+      title: templateData.title,
+      totalHorseNum: raceTemplateJson.totalHoseNum,
+      horseList: raceTemplateJson.horseList,
+    },
   });
 };
 
 const reorderTierList = (
-  tierList: TierListMap,
+  tierList: RaceTierListJson,
   source: DraggableLocation,
   destination: DraggableLocation
 ) => {
@@ -67,16 +74,19 @@ const reorderTierList = (
 };
 
 export default function RaceIndexRoute() {
-  const { horses } = useLoaderData<LoaderData>();
+  const { data } = useLoaderData<LoaderData>();
 
-  const [tierList, setTierList] = useState<TierListMap>({
+  const [tierList, setTierList] = useState<RaceTierListJson>({
     S: [],
     A: [],
     B: [],
     C: [],
     D: [],
     E: [],
-    initialList: horses,
+    initialList: data.horseList.map((horse) => ({
+      horseNum: horse.horseNum,
+      horse: horse.horse,
+    })),
   });
 
   const [windowReady, setWindowReady] = useState(false);
@@ -85,11 +95,6 @@ export default function RaceIndexRoute() {
   useEffect(() => {
     setWindowReady(true);
   }, []);
-
-  const getHorseId = useCallback(
-    (url: string) => url.substring(url.lastIndexOf("/") + 1),
-    []
-  );
 
   const isInitialList = useCallback(
     (rank: string) => rank === "initialList",
@@ -146,8 +151,8 @@ export default function RaceIndexRoute() {
                   >
                     {list.map((horse, index) => (
                       <Draggable
-                        key={getHorseId(horse.netkibaLink)}
-                        draggableId={getHorseId(horse.netkibaLink)}
+                        key={`draggable-${horse.horseNum}`}
+                        draggableId={`draggable-${horse.horseNum}`}
                         index={index}
                       >
                         {(dragProvided) => (
@@ -157,9 +162,15 @@ export default function RaceIndexRoute() {
                             forwardRef={dragProvided.innerRef}
                             mode={mode}
                             horse={horse}
-                            frameColor={getFrameColor(horse.gateNumber!, 16)}
+                            frameColor={getFrameColor(
+                              horse.horseNum!,
+                              data.totalHorseNum
+                            )}
                             fontColor={
-                              getFrameNumber(horse.gateNumber!, 16) === 1
+                              getFrameNumber(
+                                horse.horseNum!,
+                                data.totalHorseNum
+                              ) === 1
                                 ? "rgb(60,60,60)"
                                 : "white"
                             }

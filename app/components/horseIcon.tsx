@@ -1,10 +1,9 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { ComponentProps } from "react";
-import unknownIcon from "~/assets/image/unknown.svg";
-import { Horse } from "~/models/horse.server";
+import { RaceTierListHorse } from "~/models/raceTierList.server";
 
 type Props = ComponentProps<typeof Box> & {
-  horse: Horse;
+  horse: RaceTierListHorse;
   mode: "COLORS" | "NUMBER";
   frameColor?: string;
   fontColor?: string;
@@ -20,23 +19,17 @@ export const HorseIcon: React.VFC<Props> = ({
   ...props
 }) => (
   <Box {...props} ref={forwardRef}>
-    <a target="_blank" href={horse.netkibaLink} rel="noreferrer">
-      {mode === "COLORS" ? (
-        <img src={horse.owner.colors ?? unknownIcon} alt={horse.name} />
-      ) : (
-        <Flex
-          rounded={"24px"}
-          backgroundColor={frameColor !== undefined ? frameColor : ""}
-          width={"48px"}
-          height={"48px"}
-          justifyContent={"center"}
-          alignItems={"center"}
-          color={fontColor !== undefined ? fontColor : ""}
-          fontWeight={"bold"}
-        >
-          <span>{horse.gateNumber}</span>
-        </Flex>
-      )}
-    </a>
+    <Flex
+      rounded={"24px"}
+      backgroundColor={frameColor !== undefined ? frameColor : ""}
+      width={"48px"}
+      height={"48px"}
+      justifyContent={"center"}
+      alignItems={"center"}
+      color={fontColor !== undefined ? fontColor : ""}
+      fontWeight={"bold"}
+    >
+      <span>{horse.horseNum}</span>
+    </Flex>
   </Box>
 );
