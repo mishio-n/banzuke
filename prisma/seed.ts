@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { getRaceData } from "~/services/race/getRaceData";
 const prisma = new PrismaClient();
 
 const main = async () => {
@@ -59,6 +60,16 @@ const main = async () => {
   });
 
   console.log(raceTemplate1);
+
+  const { id, ...raceTemplateData2 } = await getRaceData(
+    "https://race.netkeiba.com/race/shutuba.html?race_id=202206030811"
+  );
+
+  const raceTemplate2 = await prisma.raceTemplate.create({
+    data: { id, title: "皐月賞", json: JSON.stringify(raceTemplateData2) },
+  });
+
+  console.log(raceTemplate2);
 };
 
 main()

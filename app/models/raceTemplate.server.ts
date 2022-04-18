@@ -4,7 +4,7 @@ import { db } from "~/utils/db.server";
 export type { RaceTemplate } from "@prisma/client";
 export type RaceTemplateJson = {
   horseList: RaceTemplateHorse[];
-  totalHoseNum: number;
+  totalHorseNum: number;
 };
 export type RaceTemplateHorse = {
   horseNum: number;

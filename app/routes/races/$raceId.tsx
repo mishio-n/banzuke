@@ -41,7 +41,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json<LoaderData>({
     data: {
       title: templateData.title,
-      totalHorseNum: raceTemplateJson.totalHoseNum,
+      totalHorseNum: raceTemplateJson.totalHorseNum,
       horseList: raceTemplateJson.horseList,
     },
   });
@@ -166,7 +166,7 @@ export default function RaceRoute() {
                             forwardRef={dragProvided.innerRef}
                             horse={horse}
                             frameColor={getFrameColor(
-                              horse.horseNum!,
+                              horse.horseNum,
                               data.totalHorseNum
                             )}
                             fontColor={
