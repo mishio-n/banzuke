@@ -1,4 +1,4 @@
-import { Box, Flex, Switch } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { useCallback, useEffect, useState } from "react";
 import {
   DragDropContext,
@@ -8,6 +8,7 @@ import {
 } from "react-beautiful-dnd";
 import { json, LoaderFunction, useLoaderData } from "remix";
 import { HorseIcon } from "~/components/horseIcon";
+import { RaceTable } from "~/components/raceTable";
 import { getFrameColor, getFrameNumber } from "~/logic/getFrameColor";
 import { reorder } from "~/logic/reorder";
 import {
@@ -25,12 +26,16 @@ type LoaderData = {
   };
 };
 
-type DispMode = "COLORS" | "NUMBER";
-
-export const loader: LoaderFunction = async () => {
-  const templateData = await getRaceTemplate("202209020609");
+export const loader: LoaderFunction = async ({ params }) => {
+  const raceTemplateId = params.raceId;
+  if (raceTemplateId === undefined) {
+    throw new Response("Bad Request", {
+      status: 400,
+    });
+  }
+  const templateData = await getRaceTemplate(raceTemplateId);
   if (templateData === null) {
-    return { status: 404 };
+    throw new Response("Not Found", { status: 404 });
   }
   const raceTemplateJson = JSON.parse(templateData.json) as RaceTemplateJson;
   return json<LoaderData>({
@@ -73,7 +78,7 @@ const reorderTierList = (
   };
 };
 
-export default function RaceIndexRoute() {
+export default function RaceRoute() {
   const { data } = useLoaderData<LoaderData>();
 
   const [tierList, setTierList] = useState<RaceTierListJson>({
@@ -90,7 +95,6 @@ export default function RaceIndexRoute() {
   });
 
   const [windowReady, setWindowReady] = useState(false);
-  const [mode, setMode] = useState<DispMode>("COLORS");
 
   useEffect(() => {
     setWindowReady(true);
@@ -160,7 +164,6 @@ export default function RaceIndexRoute() {
                             {...dragProvided.dragHandleProps}
                             {...dragProvided.draggableProps}
                             forwardRef={dragProvided.innerRef}
-                            mode={mode}
                             horse={horse}
                             frameColor={getFrameColor(
                               horse.horseNum!,
@@ -186,10 +189,9 @@ export default function RaceIndexRoute() {
           ))}
         </Box>
       </DragDropContext>
-      <Switch
-        onChange={(event) => {
-          setMode(event.target.checked ? "NUMBER" : "COLORS");
-        }}
+      <RaceTable
+        horseList={data.horseList}
+        totalHorseNum={data.totalHorseNum}
       />
     </>
   );

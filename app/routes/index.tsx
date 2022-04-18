@@ -12,7 +12,7 @@ export default function Index() {
           </Link>
         </li>
         <li>
-          <Link to="/race">
+          <Link to="/races">
             <span>レース</span>
           </Link>
         </li>

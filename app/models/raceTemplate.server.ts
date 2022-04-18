@@ -13,7 +13,7 @@ export type RaceTemplateHorse = {
 };
 
 export const getRaceTemplates = async () => {
-  return db.raceTemplate.findMany();
+  return db.raceTemplate.findMany({ select: { id: true, title: true } });
 };
 
 export const getRaceTemplate = async (id: string) => {

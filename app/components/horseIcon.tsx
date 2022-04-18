@@ -4,7 +4,6 @@ import { RaceTierListHorse } from "~/models/raceTierList.server";
 
 type Props = ComponentProps<typeof Box> & {
   horse: RaceTierListHorse;
-  mode: "COLORS" | "NUMBER";
   frameColor?: string;
   fontColor?: string;
   forwardRef: (element?: HTMLElement | null) => any;
@@ -12,7 +11,6 @@ type Props = ComponentProps<typeof Box> & {
 
 export const HorseIcon: React.VFC<Props> = ({
   horse,
-  mode,
   frameColor,
   fontColor,
   forwardRef,
