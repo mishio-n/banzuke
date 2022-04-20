@@ -4,7 +4,11 @@ import { db } from "~/utils/db.server";
 
 export type { Horse } from "@prisma/client";
 
-export const getHorseDataBySeason = async (
+export const getGenerations = async () => {
+  return db.horse.groupBy({ by: ["birthyear"] });
+};
+
+export const getHorseDataByGeneration = async (
   birthyear: number,
   genderCategory?: GenderCategory
 ) => {
