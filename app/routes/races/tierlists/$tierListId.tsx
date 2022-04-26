@@ -15,44 +15,56 @@ import {
   useLoaderData,
 } from "remix";
 import { HorseIcon } from "~/components/horseIcon";
-import { RaceTable } from "~/components/raceTable";
 import { getFrameColor, getFrameNumber } from "~/logic/getFrameColor";
 import { reorder } from "~/logic/reorder";
 import {
   getRaceTemplate,
-  RaceTemplateHorse,
   RaceTemplateJson,
 } from "~/models/raceTemplate.server";
 import {
   createRaceTierList,
+  getRaceTierList,
   RaceTierListJson,
 } from "~/models/raceTierList.server";
 
 type LoaderData = {
   data: {
     title: string;
-    horseList: RaceTemplateHorse[];
+    commennt: string;
+    raceTierListJson: RaceTierListJson;
     totalHorseNum: number;
   };
 };
 
 export const loader: LoaderFunction = async ({ params }) => {
-  const raceTemplateId = params.raceId;
-  if (raceTemplateId === undefined) {
+  const raceTierListId = params.tierListId;
+  if (raceTierListId === undefined) {
     throw new Response("Bad Request", {
       status: 400,
     });
   }
-  const templateData = await getRaceTemplate(raceTemplateId);
-  if (templateData === null) {
+  const raceTierListData = await getRaceTierList(raceTierListId);
+  if (raceTierListData === null) {
     throw new Response("Not Found", { status: 404 });
   }
-  const raceTemplateJson = JSON.parse(templateData.json) as RaceTemplateJson;
+  const raceTierListJson = JSON.parse(
+    raceTierListData.json
+  ) as RaceTierListJson;
+  const raceTemplateData = await getRaceTemplate(
+    raceTierListData.raceTemplateId
+  );
+  if (raceTemplateData === null) {
+    throw new Response("Not Found", { status: 404 });
+  }
+  const raceTemplateJson = JSON.parse(
+    raceTemplateData.json
+  ) as RaceTemplateJson;
   return json<LoaderData>({
     data: {
-      title: templateData.title,
+      title: raceTierListData.title,
+      commennt: raceTierListData.comment,
+      raceTierListJson,
       totalHorseNum: raceTemplateJson.totalHorseNum,
-      horseList: raceTemplateJson.horseList,
     },
   });
 };
@@ -116,18 +128,9 @@ const reorderTierList = (
 export default function RaceRoute() {
   const { data } = useLoaderData<LoaderData>();
 
-  const [tierList, setTierList] = useState<RaceTierListJson>({
-    S: [],
-    A: [],
-    B: [],
-    C: [],
-    D: [],
-    E: [],
-    initialList: data.horseList.map((horse) => ({
-      horseNum: horse.horseNum,
-      horse: horse.horse,
-    })),
-  });
+  const [tierList, setTierList] = useState<RaceTierListJson>(
+    data.raceTierListJson
+  );
 
   const [windowReady, setWindowReady] = useState(false);
 
@@ -160,7 +163,7 @@ export default function RaceRoute() {
           />
           <input type="text" name="title" id="tetle" />
           <input type="text" name="comment" id="comment" />
-          <button type="submit">Add</button>
+          {/* <button type="submit">Add</button> */}
         </Flex>
       </Form>
       <DragDropContext
@@ -241,10 +244,6 @@ export default function RaceRoute() {
           ))}
         </Box>
       </DragDropContext>
-      <RaceTable
-        horseList={data.horseList}
-        totalHorseNum={data.totalHorseNum}
-      />
     </>
   );
 }

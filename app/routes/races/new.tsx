@@ -1,5 +1,6 @@
 import {
   ActionFunction,
+  Form,
   json,
   redirect,
   useActionData,
@@ -41,7 +42,7 @@ export default function NewRaceRoute() {
 
   return (
     <div>
-      <form method="post">
+      <Form method="post">
         <div>
           <label htmlFor="raceUrl">
             URL:
@@ -71,7 +72,7 @@ export default function NewRaceRoute() {
             追加
           </button>
         </div>
-      </form>
+      </Form>
     </div>
   );
 }
