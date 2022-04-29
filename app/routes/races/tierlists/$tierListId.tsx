@@ -125,7 +125,7 @@ const reorderTierList = (
   };
 };
 
-export default function RaceRoute() {
+export default function TierListRoute() {
   const { data } = useLoaderData<LoaderData>();
 
   const [tierList, setTierList] = useState<RaceTierListJson>(

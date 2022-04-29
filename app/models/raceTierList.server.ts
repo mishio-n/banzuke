@@ -25,6 +25,14 @@ export const getRaceTierList = async (id: string) => {
   });
 };
 
+export const getRaceTierLists = async (raceTemplateId?: string) => {
+  return db.raceTierList.findMany({
+    where: {
+      raceTemplateId,
+    },
+  });
+};
+
 export const createRaceTierList = async (
   raceTemplateId: string,
   json: RaceTierListJson,

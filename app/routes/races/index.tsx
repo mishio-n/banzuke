@@ -27,7 +27,12 @@ export default function RaceIndexRoute() {
     <>
       {raceTemplates.map((race) => (
         <Flex key={race.id}>
-          <Link to={race.id}>{race.title}</Link>
+          <Flex direction={"row"}>
+            <Link to={race.id}>{race.title}</Link>
+            <Link to={`/races/tierlists?template=${race.id}`}>
+              <span>予想を見る</span>
+            </Link>
+          </Flex>
         </Flex>
       ))}
     </>
