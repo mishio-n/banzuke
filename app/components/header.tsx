@@ -1,3 +1,4 @@
+import { QuestionOutlineIcon } from "@chakra-ui/icons";
 import { Flex, Heading } from "@chakra-ui/react";
 import { Link } from "remix";
 import { APP_TITLE } from "~/constants/app.const";
@@ -24,5 +25,13 @@ export const Header: React.VFC = () => (
         </Link>
       </Heading>
     </Flex>
+    <Link to={`/about`}>
+      <QuestionOutlineIcon
+        h={8}
+        w={8}
+        color={"rgba(255,255,255,0.8)"}
+        _hover={{ color: "rgba(255,255,255)" }}
+      />
+    </Link>
   </Flex>
 );
