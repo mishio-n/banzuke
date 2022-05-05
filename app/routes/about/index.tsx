@@ -1,7 +1,7 @@
 export default function AboutIndexRoute() {
   return (
     <>
-      <h1>Banzuke</h1>
+      <p>レース予想をランキング形式で行うことができます</p>
     </>
   );
 }

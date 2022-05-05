@@ -207,6 +207,7 @@ export default function TierListRoute() {
                     backgroundColor={"gray.100"}
                     alignItems={"center"}
                     padding={2}
+                    overflowX={"auto"}
                   >
                     {list.map((horse, index) => (
                       <Draggable

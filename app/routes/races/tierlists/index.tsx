@@ -1,6 +1,7 @@
 import { Flex } from "@chakra-ui/react";
+import { CatchBoundaryComponent } from "@remix-run/react/routeModules";
 import { Link } from "react-router-dom";
-import { json, LoaderFunction, useLoaderData } from "remix";
+import { json, LoaderFunction, useCatch, useLoaderData } from "remix";
 import { getRaceTierLists } from "~/models/raceTierList.server";
 
 type LoaderData = {
@@ -33,3 +34,11 @@ export default function TierListIndexRoute() {
     </>
   );
 }
+
+export const CatchBoundary: CatchBoundaryComponent = () => {
+  const error = useCatch();
+  if (error.status === 404) {
+    return <p>予想が登録されていません</p>;
+  }
+  return <span>error</span>;
+};

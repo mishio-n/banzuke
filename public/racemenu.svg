@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="389px" height="331px" viewBox="0 0 389 331" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 2</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-2">
+            <g id="Group">
+                <rect id="Rectangle" fill="#FF7B7B" x="0" y="0" width="46" height="69"></rect>
+                <rect id="Rectangle" fill="#F7F7F7" x="46" y="0" width="343" height="69"></rect>
+                <rect id="Rectangle-Copy-5" fill="#F7F7F7" x="46" y="69" width="343" height="69"></rect>
+                <rect id="Rectangle-Copy-6" fill="#F7F7F7" x="46" y="138" width="343" height="69"></rect>
+                <rect id="Rectangle-Copy-7" fill="#F7F7F7" x="46" y="200" width="343" height="69"></rect>
+                <rect id="Rectangle-Copy-8" fill="#F7F7F7" x="46" y="262" width="343" height="69"></rect>
+                <rect id="Rectangle-Copy" fill="#9BC0FF" x="0" y="69" width="46" height="69"></rect>
+                <rect id="Rectangle-Copy-2" fill="#9ADFAB" x="0" y="131" width="46" height="69"></rect>
+                <rect id="Rectangle-Copy-3" fill="#ECCE76" x="0" y="200" width="46" height="69"></rect>
+                <rect id="Rectangle-Copy-4" fill="#D8D8D8" x="0" y="262" width="46" height="69"></rect>
+            </g>
+            <circle id="Oval" stroke="#737373" fill="#FFFBFB" cx="76" cy="35" r="19.5"></circle>
+            <circle id="Oval" stroke="#737373" fill="#FFFBFB" cx="76" cy="165" r="19.5"></circle>
+            <circle id="Oval" stroke="#737373" fill="#FF6D6D" cx="76" cy="97" r="19.5"></circle>
+            <circle id="Oval" stroke="#737373" fill="#737373" cx="136" cy="166" r="19.5"></circle>
+            <circle id="Oval" stroke="#737373" fill="#FFB26D" cx="76" cy="227" r="19.5"></circle>
+            <circle id="Oval" stroke="#737373" fill="#FFB26D" cx="136" cy="227" r="19.5"></circle>
+            <circle id="Oval" stroke="#737373" fill="#9ADFAB" cx="76" cy="295" r="19.5"></circle>
+            <circle id="Oval" stroke="#737373" fill="#6D9CFF" cx="195" cy="166" r="19.5"></circle>
+        </g>
+    </g>
+</svg>

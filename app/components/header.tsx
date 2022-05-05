@@ -2,6 +2,7 @@ import { QuestionOutlineIcon } from "@chakra-ui/icons";
 import { Flex, Heading } from "@chakra-ui/react";
 import { Link } from "remix";
 import { APP_TITLE } from "~/constants/app.const";
+import { Spacer } from "./spacer";
 
 export const Header: React.VFC = () => (
   <Flex
@@ -25,6 +26,7 @@ export const Header: React.VFC = () => (
         </Link>
       </Heading>
     </Flex>
+    <Spacer width={100} />
     <Link to={`/about`}>
       <QuestionOutlineIcon
         h={8}
