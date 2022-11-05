@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import { CatchBoundaryComponent } from "@remix-run/react/routeModules";
+import { CatchBoundaryComponent } from "@remix-run/react/dist/routeModules";
 import { Link } from "react-router-dom";
 import { json, LoaderFunction, useCatch, useLoaderData } from "remix";
 import { getRaceTierLists } from "~/models/raceTierList.server";

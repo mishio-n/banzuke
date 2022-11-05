@@ -1,7 +1,7 @@
-import { Box, Button, Divider, Flex } from "@chakra-ui/react";
-import React from "react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { json, Link, LoaderFunction, Outlet, useLoaderData } from "remix";
 import { Header } from "~/components/header";
+import { RaceCard } from "~/components/raceCard";
 import { getRaceTemplates } from "~/models/raceTemplate.server";
 
 type LoaderData = {
@@ -29,20 +29,21 @@ export default function RacesRoute() {
       <Header />
       <Flex direction={"row"} width={"100%"}>
         <Box>
-          <Button>
-            <Link to={"/races/new"}>新しくレースを登録する</Link>
-          </Button>
-          {raceTemplates.map((race, index) => (
-            <React.Fragment key={`fragment-${race.id}`}>
-              {index !== 0 && <Divider key={`divider-${race.id}`} />}
-              <Flex key={race.id}>
-                <Flex direction={"row"}>
-                  <Link to={`/races/tierlists?template=${race.id}`}>
-                    {race.title}
-                  </Link>
-                </Flex>
+          <RaceCard>
+            <img src="/add.svg" alt="add" style={{ width: 24, height: 24 }} />
+            <Link to={"/races/new"}>
+              <Text fontWeight={700}>新しくレースを登録する</Text>
+            </Link>
+          </RaceCard>
+
+          {raceTemplates.map((race) => (
+            <Flex key={race.id}>
+              <Flex direction={"row"}>
+                <Link to={`/races/tierlists?template=${race.id}`}>
+                  {race.title}
+                </Link>
               </Flex>
-            </React.Fragment>
+            </Flex>
           ))}
         </Box>
         <Box
